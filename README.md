@@ -1,6 +1,9 @@
 # Astruct
 
-TODO: Write a gem description
+AltStruct is a direct alternative to OpenStruct, the Ruby stdlibrary.
+
+In some cases AltStruct is slower than OpenStruct, especially on incredibly large keys.
+
 
 ## Installation
 
