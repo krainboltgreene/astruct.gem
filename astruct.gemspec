@@ -4,9 +4,9 @@ require File.expand_path('../lib/astruct/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Kurtis Rainbolt-Greene"]
   gem.email         = ["kurtisrainboltgreene@gmail.com"]
-  gem.description   = %q{An alternative to OpenStruct}
   gem.summary       = %q{An alternative to OpenStruct}
-  gem.homepage      = ""
+  gem.description   = gem.summary
+  gem.homepage      = "http://krainboltgreene.github.com/astruct"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
