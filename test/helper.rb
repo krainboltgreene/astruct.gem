@@ -1,1 +1,1 @@
-require_relative '../lib/astruct'
+require 'astruct'
