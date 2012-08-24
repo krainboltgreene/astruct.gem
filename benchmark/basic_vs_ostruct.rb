@@ -23,7 +23,7 @@ report = Benchmark.bmbm do |x|
   x.report "OStruct load" do
     class OProfile < OpenStruct; end
     op = OProfile.new
-    op.load ODATA
+    op.marshal_load ODATA
   end
 
   x.report "AStruct load" do
