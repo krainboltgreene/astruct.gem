@@ -12,7 +12,7 @@ report = Benchmark.bmbm do |x|
   end
 
   x.report "AStruct creation" do
-    class AProfile; include AltStruct; end
+    class AProfile < AltStruct; end
     AProfile.new ADATA
   end
 end
@@ -27,7 +27,7 @@ report = Benchmark.bmbm do |x|
   end
 
   x.report "AStruct load" do
-    class AProfile; include AltStruct; end
+    class AProfile < AltStruct; end
     ap = AProfile.new
     ap.load ADATA
   end
