@@ -1,37 +1,17 @@
-require 'benchmark'
+require 'benchmark/ips'
 require_relative '../lib/astruct'
 require 'ostruct'
 
-ODATA = (1..10_000).map { |i| { :"item#{i}" => i } }.inject :merge!
-ADATA = (1..10_000).map { |i| { :"item#{i}" => i } }.inject :merge!
+DATA = (1..1_000).map { |i| { :"item#{i}" => i } }.inject :merge!
 
-report = Benchmark.bmbm do |x|
+Benchmark.ips do |x|
   x.report "OStruct creation" do
     class OProfile < OpenStruct; end
-    OProfile.new ODATA
+    OProfile.new DATA.dup
   end
 
   x.report "AStruct creation" do
     class AProfile < AltStruct; end
-    AProfile.new ADATA
+    AProfile.new DATA.dup
   end
 end
-
-puts "Astruct is #{report.map(&:to_s).map(&:split).map(&:last).map(&:to_f).inject(:/) * 100 - 100}% faster"
-puts "---"
-
-report = Benchmark.bmbm do |x|
-  x.report "OStruct load" do
-    class OProfile < OpenStruct; end
-    op = OProfile.new
-    op.marshal_load ODATA
-  end
-
-  x.report "AStruct load" do
-    class AProfile < AltStruct; end
-    ap = AProfile.new
-    ap.load ADATA
-  end
-end
-puts "---"
-puts "Astruct is #{report.map(&:to_s).map(&:split).map(&:last).map(&:to_f).inject(:/) * 100 - 100}% faster"
