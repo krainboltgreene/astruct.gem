@@ -83,7 +83,7 @@ class AltStruct
 
     def __define_accessor__(key, value)
       define_singleton_method(key) { @table[key] }
-      define_singleton_method(:"#{key}=") { |value| @table[key] = value }
+      define_singleton_method(:"#{key}=") { |v| @table[key] = v }
       { key => value }.freeze
     end
 
