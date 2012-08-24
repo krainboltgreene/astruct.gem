@@ -54,6 +54,15 @@ class TestAltStruct < MiniTest::Unit::TestCase
     actual = @example.inspect
     assert_equal expected, actual
   end
+
+  def test_inspect_with_twice_inspected_struct
+    @example.inspect
+    @example.inspect
+    expected = '#<AltStruct name="Kurtis", age=24>'
+    actual = @example.inspect
+    assert_equal expected, actual
+  end
+
   def test_inspect_with_empty_sub_struct
     @empty.struct2 = AltStruct.new
     expected = '#<AltStruct struct2=#<AltStruct>>'
