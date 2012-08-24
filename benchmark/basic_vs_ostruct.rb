@@ -1,5 +1,5 @@
 require 'benchmark'
-require 'astruct'
+require_relative '../lib/astruct'
 require 'ostruct'
 
 ODATA = (1..10_000).map { |i| { :"item#{i}" => i } }.inject :merge!
