@@ -103,11 +103,12 @@ class AltStruct
       __create_id_list__
       unless __id_exists_in_id_list?
         __add_id_to_id_list__
-        __dump__.any? ? " #{__dump_string__.join ', '}" : ""
+        string = __dump__.any? ? " #{__dump_string__.join ', '}" : ""
       else
         __remove_id_from_id_list__
-        __dump__.any? ? " ..." : ""
+        string = __dump__.any? ? " ..." : ""
       end
+      string
     end
 
     def __define_accessor__(key, value)
