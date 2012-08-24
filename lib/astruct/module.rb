@@ -105,7 +105,7 @@ class AltStruct
         __add_id_to_id_list__
         string = __dump__.any? ? " #{__dump_string__.join ', '}" : ""
       else
-        __remove_id_from_id_list__
+        __remove_last_id_from_id_list__
         string = __dump__.any? ? " ..." : ""
       end
       string
@@ -143,7 +143,7 @@ class AltStruct
       Thread.current[ThreadKey].include?(object_id)
     end
 
-    def __remove_id_from_id_list__
+    def __remove_last_id_from_id_list__
       Thread.current[ThreadKey].pop
     end
   end
