@@ -108,6 +108,7 @@ class AltStruct
         __remove_last_id_from_id_list__
         string = __dump__.any? ? " ..." : ""
       end
+      __remove_last_id_from_id_list__
       string
     end
 
