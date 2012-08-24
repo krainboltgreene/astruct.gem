@@ -133,76 +133,86 @@ class TestAltStruct < MiniTest::Unit::TestCase
     assert_equal expected, actual
   end
 
-  def test_that_example_has_table_method
+  def test_example_has_table_method
     assert_respond_to @example, :table
   end
 
-  def test_that_empty_example_has_empty_table
+  def test_empty_example_has_empty_table
     expected = {}
     actual = @empty.table
     assert_equal expected, actual
   end
 
-  def test_that_example_has_name_method
+  def test_example_has_name_method
     assert_respond_to @example, :name
   end
 
-  def test_that_example_has_given_name
+  def test_example_has_given_name
     expected = "Kurtis"
     actual = @example.name
     assert_equal expected, actual
   end
 
-  def test_that_example_takes_name
+  def test_example_takes_name
     assert_send [@example, :name=, "Dave"]
   end
 
-  def test_that_example_has_taken_name
+  def test_example_has_taken_name
     @example.name = "Dave"
     expected = "Dave"
     actual = @example.name
     assert_equal expected, actual
   end
 
-  def test_that_load_takes_a_hash
+  def test_load_takes_a_hash
     assert_send  [@example, :load, { nickname: "Kurt" }]
   end
 
-  def test_that_load_sets_methods
+  def test_load_sets_methods
     @example.load nickname: "Kurt"
     assert_respond_to @example, :nickname
   end
 
-  def test_that_load_sets_correct_value
+  def test_astruct_has_getter_methods_with_non_alpha_numeric_characters
+    @example.load "Length (In Inchs)" => 72
+    assert_send  [@example, :"Length (In Inchs)"]
+  end
+
+  def test_astruct_has_getter_methods_with_non_alpha_numeric_characters
+    @example.load "Length (In Inchs)" => 72
+    assert_send  [@example, :"Length (In Inchs)=", 73]
+  end
+
+  def test_load_sets_correct_value
     @example.load nickname: "Kurt"
     expected = "Kurt"
     actual = @example.nickname
     assert_equal expected, actual
   end
 
-  def test_that_example_has_dump_method
+  def test_example_has_dump_method
     assert_respond_to @example, :dump
   end
 
-  def test_that_dump_contains_values
+  def test_dump_contains_values
     expected = { name: "Kurtis", age: 24 }
     actual = @example.dump
     assert_equal expected, actual
   end
 
-  def test_that_selective_dump_contains_selective_values
+  def test_selective_dump_contains_selective_values
     expected = { age: 24 }
     actual = @example.dump :age
     assert_equal expected, actual
   end
 
-  def test_inspect_has_values
+  def test_inspect_has_values_delimited_by_comma
     expected = /name="Kurtis", age=24/
     actual = @example.inspect
     assert_match expected, actual
   end
 
-  def test_that_other_class_isnt_affected
+  def test_other_object_isnt_affected
     refute_respond_to @empty, :name
   end
 end
