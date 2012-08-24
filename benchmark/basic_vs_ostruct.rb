@@ -18,6 +18,7 @@ report = Benchmark.bmbm do |x|
 end
 
 puts "Astruct is #{report.map(&:to_s).map(&:split).map(&:last).map(&:to_f).inject(:/) * 100 - 100}% faster"
+puts "---"
 
 report = Benchmark.bmbm do |x|
   x.report "OStruct load" do
@@ -32,5 +33,5 @@ report = Benchmark.bmbm do |x|
     ap.load ADATA
   end
 end
-
+puts "---"
 puts "Astruct is #{report.map(&:to_s).map(&:split).map(&:last).map(&:to_f).inject(:/) * 100 - 100}% faster"
