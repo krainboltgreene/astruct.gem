@@ -38,7 +38,7 @@ class TestAltStruct < MiniTest::Unit::TestCase
     assert_equal expected, actual
   end
 
-  def test_inspect_with_sub_struct
+  def test_inspect_with_sub_struct_duplicate
     @empty.struct2 = AltStruct.new
     @empty.struct2.struct3 = @empty
     expected = '#<AltStruct struct2=#<AltStruct struct3=#<AltStruct ...>>>'
