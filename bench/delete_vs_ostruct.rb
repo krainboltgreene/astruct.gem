@@ -1,5 +1,5 @@
 require 'benchmark/ips'
-require_relative '../lib/astruct'
+require 'astruct'
 require 'ostruct'
 
 DATA = (1..1_000).map { |i| { :"item#{i}" => i } }.inject :merge!
