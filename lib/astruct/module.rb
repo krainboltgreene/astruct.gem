@@ -2,6 +2,8 @@ class AltStruct
   module M
     ThreadKey = :__inspect_astruct_ids__ # :nodoc:
     attr_reader :table
+    alias_method :__object_id__, :object_id
+    alias_method :__singleton_class__, :singleton_class
 
     # Create a new field for each of the key/value pairs passed.
     # By default the resulting OpenStruct object will have no
@@ -58,8 +60,8 @@ class AltStruct
     # The delete_field() method removes a key/value pair on the @table
     # and on the singleton class. It also mimics the Hash#delete method.
     def __delete_field__(key)
-      singleton_class.send :remove_method, key
-      singleton_class.send :remove_method, :"#{key}="
+      __singleton_class__.send :remove_method, key
+      __singleton_class__.send :remove_method, :"#{key}="
       @table.delete key
     end
     alias_method :delete_field, :__delete_field__
@@ -96,6 +98,8 @@ class AltStruct
       super
       @table.freeze
     end
+    alias_method :__freeze__, :freeze
+    alias_method :__frozen?, :frozen?
 
     private
 
@@ -141,7 +145,7 @@ class AltStruct
     end
 
     def __id_exists_in_id_list?
-      Thread.current[ThreadKey].include?(object_id)
+      Thread.current[ThreadKey].include?(__object_id__)
     end
 
     def __remove_last_id_from_id_list__
