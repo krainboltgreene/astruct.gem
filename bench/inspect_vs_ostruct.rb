@@ -2,7 +2,7 @@ require 'benchmark/ips'
 require 'astruct'
 require 'ostruct'
 
-DATA = (1..1_000).map { |i| { :"item#{i}" => i } }.inject :merge!
+DATA = (1..10_000).map { |i| { :"item#{i}" => i } }.inject :merge!
 
 Benchmark.ips do |x|
   x.report "OStruct load" do
