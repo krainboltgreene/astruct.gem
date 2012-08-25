@@ -17,12 +17,6 @@ Benchmark.ips do |x|
     ap.dump
   end
 end
-
-class OProfile < OpenStruct; end
-op = OProfile.new DATA.dup
-class AProfile < AltStruct; end
-ap = AProfile.new DATA.dup
-puts "The output of each is the same: #{ap.dump == op.marshal_dump}"
 # Calculating -------------------------------------
 # OStruct dump with data 1 i/100ms
 # AStruct dump with data 1 i/100ms
