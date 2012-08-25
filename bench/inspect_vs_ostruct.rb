@@ -17,3 +17,9 @@ Benchmark.ips do |x|
     ap.inspect
   end
 end
+# Calculating -------------------------------------
+# OStruct inspect with data 1 i/100ms
+# AStruct inspect with data 1 i/100ms
+# -------------------------------------------------
+# OStruct inspect with data 8.2 (±24.4%) i/s - 40 in 5.085258s
+# AStruct inspect with data 9.1 (±21.9%) i/s - 45 in 5.063373s
