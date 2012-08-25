@@ -150,10 +150,6 @@ class TestOpenStruct < MiniTest::Unit::TestCase
     assert_equal expected, actual
   end
 
-  def test_example_has_table_method
-    assert_respond_to @example, :table
-  end
-
   def test_empty_example_has_empty_table
     expected = {}
     actual = @empty.table
@@ -207,13 +203,9 @@ class TestOpenStruct < MiniTest::Unit::TestCase
     assert_equal expected, actual
   end
 
-  def test_example_has_dump_method
-    assert_respond_to @example, :dump
-  end
-
   def test_dump_contains_values
     expected = { name: "Kurtis", age: 24 }
-    actual = @example.dump
+    actual = @example.marshal_dump
     assert_equal expected, actual
   end
 
