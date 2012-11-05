@@ -27,3 +27,15 @@ end
 # -------------------------------------------------
 # OStruct new with data then 3 deep and inspect 2.0 (±0.0%) i/s - 10 in 5.184739s
 # AStruct new with data then 3 deep and inspect 3.1 (±31.9%) i/s - 15 in 5.029310s
+
+# 2012-11-04 16:06:22 -0800
+# Calculating -------------------------------------
+# OStruct new with data then 3 deep and inspect
+#                              1 i/100ms
+# AStruct new with data then 3 deep and inspect
+#                              1 i/100ms
+# -------------------------------------------------
+# OStruct new with data then 3 deep and inspect
+#                             1.1 (±0.0%) i/s -          6 in   5.686992s
+# AStruct new with data then 3 deep and inspect
+#                             1.5 (±0.0%) i/s -          8 in   5.306089s
