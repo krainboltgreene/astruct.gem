@@ -27,5 +27,16 @@ YARD::Rake::YardocTask.new do |config|
   config.files = Dir['lib/**/*.rb']
 end
 
+desc "Running all the benchmarks and writing results to file"
+task :bench do
+  Dir[File.join(File.dirname(__FILE__), "bench", "*")].each do |benchmark|
+    results = `bundle exec ruby #{benchmark}`
+    File.open benchmark, "a" do |file|
+      file.write "\n# #{Time.now}\n"
+      file.write results.gsub /^/, "# "
+    end
+  end
+end
+
 desc 'Default: run tests, and generate docs'
 task :default => [ :test, :yard ]
