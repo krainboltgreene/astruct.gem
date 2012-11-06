@@ -9,7 +9,7 @@ Benchmark.ips do |x|
   x.report "OStruct new with data then load with more data" do
     class OProfile < OpenStruct; end
     op = OProfile.new DATA.dup
-    op.marshal_load DATA2.dup
+    op.marshal_load op.marshal_dump.merge DATA2.dup
   end
 
   x.report "AStruct new with data then load with more data" do
