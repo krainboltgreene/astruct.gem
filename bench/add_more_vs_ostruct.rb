@@ -2,8 +2,8 @@ require 'benchmark/ips'
 require 'astruct'
 require 'ostruct'
 
-DATA = (1..10_000).map { |i| { :"item#{i}" => i } }.inject :merge!
-DATA2 = (10_000..20_000).map { |i| { :"item#{i}" => i } }.inject :merge!
+DATA = (1..10_000).map { |i| { "key#{i}" => "value#{i}" } }.inject :merge!
+DATA2 = (10_000..20_000).map { |i| { "key#{i}" => "value#{i}" } }.inject :merge!
 
 Benchmark.ips do |x|
   x.report "OStruct new with data then load with more data" do
