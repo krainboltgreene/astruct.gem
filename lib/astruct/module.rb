@@ -154,5 +154,9 @@ class AltStruct
     def __remove_last_id_from_id_list__
       Thread.current[ThreadKey].pop
     end
+
+    def __field_exists_and_has_same_value__?(key, value)
+      table[key] == value
+    end
   end
 end
