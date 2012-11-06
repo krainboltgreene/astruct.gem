@@ -1,4 +1,4 @@
 class AltStruct
   # This is the AltStruct version
-  VERSION = "2.9.0"
+  VERSION = "2.10.0"
 end
