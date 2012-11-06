@@ -22,5 +22,5 @@ end
 # OStruct new with data then load with more data 1 i/100ms
 # AStruct new with data then load with more data 1 i/100ms
 # -------------------------------------------------
-# OStruct new with data then load with more data 3.2 (±0.0%) i/s - 16 in 5.032341s
-# AStruct new with data then load with more data 4.4 (±23.0%) i/s - 21 in 5.033214s
+# OStruct new with data then load with more data 2.6 (±0.0%) i/s - 13 in 5.025779s
+# AStruct new with data then load with more data 3.7 (±26.8%) i/s - 19 in 5.184870s
