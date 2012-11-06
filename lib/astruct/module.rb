@@ -107,7 +107,7 @@ class AltStruct
 
     def __dump_inspect__
       __create_id_list__
-      unless __id_exists_in_id_list?
+      unless __id_exists_in_id_list__?
         __add_id_to_id_list__
         string = __dump__.any? ? " #{__dump_string__.join ', '}" : ""
       else
@@ -146,7 +146,7 @@ class AltStruct
       Thread.current[ThreadKey] ||= []
     end
 
-    def __id_exists_in_id_list?
+    def __id_exists_in_id_list__?
       Thread.current[ThreadKey].include?(__object_id__)
     end
 
