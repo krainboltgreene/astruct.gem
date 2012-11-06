@@ -35,6 +35,7 @@ class AltStruct
     def __load__(pairs)
       for key, value in pairs
         key = key.to_sym
+        next if table[key] == value
         __new_field__ key, value
       end unless pairs.empty?
     end
@@ -125,7 +126,7 @@ class AltStruct
     end
 
     def __new_field__(key, value)
-      table.merge! __define_accessor__ key.to_sym, value
+      table.merge! __define_accessor__ key, value
     end
 
     def __dump_specific__(keys)
