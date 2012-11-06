@@ -22,6 +22,7 @@ class AltStruct
     def initialize(pairs = {})
       @table ||= {}
       for key, value in pairs
+        key = key.to_sym
         __new_field__ key, value
       end unless pairs.empty?
     end
@@ -33,6 +34,7 @@ class AltStruct
     # Hash#merge!
     def __load__(pairs)
       for key, value in pairs
+        key = key.to_sym
         __new_field__ key, value
       end unless pairs.empty?
     end
