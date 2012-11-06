@@ -1,5 +1,5 @@
+# require 'helper'
 # require 'minitest/autorun'
-# require_relative '../helper'
 
 # class TestOpenStruct < MiniTest::Unit::TestCase
 #   def setup

@@ -1,5 +1,5 @@
-require 'minitest/autorun'
 require 'helper'
+require 'minitest/autorun'
 
 class TestAltStruct < MiniTest::Unit::TestCase
   def setup

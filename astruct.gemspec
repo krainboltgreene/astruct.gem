@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 require File.expand_path('../lib/astruct/version', __FILE__)
 
 Gem::Specification.new do |gem|
@@ -15,10 +15,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = AltStruct::VERSION
 
-  gem.add_development_dependency 'rake', '~> 0.9'
+  gem.add_development_dependency 'rake'
   gem.add_development_dependency 'yard'
   gem.add_development_dependency 'kramdown'
   gem.add_development_dependency 'benchmark-ips'
   gem.add_development_dependency 'simplecov'
-
 end

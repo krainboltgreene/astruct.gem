@@ -21,9 +21,29 @@ Benchmark.ips do |x|
     ap.inspect
   end
 end
+
+# 2012-11-04 16:06:22 -0800
 # Calculating -------------------------------------
-# OStruct new with data then 3 deep and inspect 1 i/100ms
-# AStruct new with data then 3 deep and inspect 1 i/100ms
+# OStruct new with data then 3 deep and inspect
+#                              1 i/100ms
+# AStruct new with data then 3 deep and inspect
+#                              1 i/100ms
 # -------------------------------------------------
-# OStruct new with data then 3 deep and inspect 2.0 (±0.0%) i/s - 10 in 5.184739s
-# AStruct new with data then 3 deep and inspect 3.1 (±31.9%) i/s - 15 in 5.029310s
+# OStruct new with data then 3 deep and inspect
+#                             1.1 (±0.0%) i/s -          6 in   5.686992s
+# AStruct new with data then 3 deep and inspect
+#                             1.5 (±0.0%) i/s -          8 in   5.306089s
+# 
+# PLATFORM: rubinius 2.0.0rc1 (1.9.3 release 2012-11-02 JI) [x86_64-apple-darwin12.2.0]
+# TIMESTAMP: 2012-11-05 10:16:44 -0800
+# ---
+# Calculating -------------------------------------
+# OStruct new with data then 3 deep and inspect
+#                              1 i/100ms
+# AStruct new with data then 3 deep and inspect
+#                              1 i/100ms
+# -------------------------------------------------
+# OStruct new with data then 3 deep and inspect
+#                             0.7 (±0.0%) i/s -          4 in   5.882182s
+# AStruct new with data then 3 deep and inspect
+#                             0.7 (±0.0%) i/s -          4 in   5.806138s
