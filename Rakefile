@@ -30,10 +30,11 @@ end
 desc "Running all the benchmarks and writing results to file"
 task :bench do
   Dir[File.join(File.dirname(__FILE__), "bench", "*")].each do |benchmark|
+    header = "\nPLATFORM: #{RUBY_DESCRIPTION}\nTIMESTAMP: #{Time.now}\n---\n"
     results = `bundle exec ruby #{benchmark}`
+    document = header + results
     File.open benchmark, "a" do |file|
-      file.write "\n# #{Time.now}\n"
-      file.write results.gsub /^/, "# "
+      file.write document.gsub /^/, "# "
     end
   end
 end
