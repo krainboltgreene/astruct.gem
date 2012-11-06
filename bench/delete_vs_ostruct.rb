@@ -8,12 +8,12 @@ Benchmark.ips do |x|
   x.report "OStruct new with data then delete" do
     class OProfile < OpenStruct; end
     op = OProfile.new DATA.dup
-    op.delete_field :item1
+    op.delete_field :key1
   end
 
   x.report "AStruct new with data then delete" do
     class AProfile < AltStruct; end
     ap = AProfile.new DATA.dup
-    ap.delete :item1
+    ap.delete :key1
   end
 end
