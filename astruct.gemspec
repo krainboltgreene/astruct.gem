@@ -19,4 +19,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'yard'
   gem.add_development_dependency 'kramdown'
   gem.add_development_dependency 'benchmark-ips'
+  gem.add_development_dependency 'simplecov'
+
 end
