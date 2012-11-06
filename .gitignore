@@ -24,8 +24,8 @@
 # /.config
 /.yardoc
 # /InstalledFiles
-# /_yardoc
-# /coverage/
+/_yardoc
+/coverage/
 /doc/
 # /lib/bundler/man/
 # /rdoc/
