@@ -2,16 +2,16 @@
 
 lib = File.expand_path(File.join("..", "lib"), __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "blankgem/version"
+require "astruct/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "blankgem"
-  spec.version = Blankgem::VERSION
+  spec.name = "astruct"
+  spec.version = AltStruct::VERSION
   spec.authors = ["Kurtis Rainbolt-Greene"]
   spec.email = ["me@kurtisrainboltgreene.name"]
-  spec.summary = %q{TODO: Write a gem summary}
+  spec.summary = %q{A better version of OpenStruct}
   spec.description = spec.summary
-  spec.homepage = "http://krainboltgreene.github.io/blankgem"
+  spec.homepage = "http://krainboltgreene.github.io/astruct.gem"
   spec.license = "MIT"
 
   spec.files = Dir[File.join("lib", "**", "*")]
@@ -25,4 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry", "~> 0.9"
   spec.add_development_dependency "pry-doc", "~> 0.6"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 0.4"
+  spec.add_development_dependency "benchmark-ips", "~> 1.2"
+  spec.add_development_dependency "ruby-prof", "~> 1.2"
 end

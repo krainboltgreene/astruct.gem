@@ -1,7 +1,7 @@
 require "codeclimate-test-reporter"
 require "pry"
 require "rspec"
-require "blankgem"
+require "astruct"
 
 RSpec.configure do |let|
   let.before("suite") do

@@ -1,25 +1,79 @@
-blankgem
---------
+astruct
+-------
 
-  - [![Quality](http://img.shields.io/codeclimate/github/krainboltgreene/blankgem.gem.svg?style=flat-square)](https://codeclimate.com/github/krainboltgreene/blankgem.gem)
-  - [![Coverage](http://img.shields.io/codeclimate/coverage/github/krainboltgreene/blankgem.gem.svg?style=flat-square)](https://codeclimate.com/github/krainboltgreene/blankgem.gem)
-  - [![Build](http://img.shields.io/travis-ci/krainboltgreene/blankgem.gem.svg?style=flat-square)](https://travis-ci.org/krainboltgreene/blankgem.gem)
-  - [![Dependencies](http://img.shields.io/gemnasium/krainboltgreene/blankgem.gem.svg?style=flat-square)](https://gemnasium.com/krainboltgreene/blankgem.gem)
-  - [![Downloads](http://img.shields.io/gem/dtv/blankgem.svg?style=flat-square)](https://rubygems.org/gems/blankgem)
-  - [![Tags](http://img.shields.io/github/tag/krainboltgreene/blankgem.gem.svg?style=flat-square)](http://github.com/krainboltgreene/blankgem.gem/tags)
-  - [![Releases](http://img.shields.io/github/release/krainboltgreene/blankgem.gem.svg?style=flat-square)](http://github.com/krainboltgreene/blankgem.gem/releases)
-  - [![Issues](http://img.shields.io/github/issues/krainboltgreene/blankgem.gem.svg?style=flat-square)](http://github.com/krainboltgreene/blankgem.gem/issues)
+
+  - [![Quality](http://img.shields.io/codeclimate/github/krainboltgreene/astruct.gem.svg?style=flat-square)](https://codeclimate.com/github/krainboltgreene/astruct.gem)
+  - [![Coverage](http://img.shields.io/codeclimate/coverage/github/krainboltgreene/astruct.gem.svg?style=flat-square)](https://codeclimate.com/github/krainboltgreene/astruct.gem)
+  - [![Build](http://img.shields.io/travis-ci/krainboltgreene/astruct.gem.svg?style=flat-square)](https://travis-ci.org/krainboltgreene/astruct.gem)
+  - [![Dependencies](http://img.shields.io/gemnasium/krainboltgreene/astruct.gem.svg?style=flat-square)](https://gemnasium.com/krainboltgreene/astruct.gem)
+  - [![Downloads](http://img.shields.io/gem/dtv/astruct.svg?style=flat-square)](https://rubygems.org/gems/astruct)
+  - [![Tags](http://img.shields.io/github/tag/krainboltgreene/astruct.gem.svg?style=flat-square)](http://github.com/krainboltgreene/astruct.gem/tags)
+  - [![Releases](http://img.shields.io/github/release/krainboltgreene/astruct.gem.svg?style=flat-square)](http://github.com/krainboltgreene/astruct.gem/releases)
+  - [![Issues](http://img.shields.io/github/issues/krainboltgreene/astruct.gem.svg?style=flat-square)](http://github.com/krainboltgreene/astruct.gem/issues)
   - [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://opensource.org/licenses/MIT)
-  - [![Version](http://img.shields.io/gem/v/blankgem.svg?style=flat-square)](https://rubygems.org/gems/blankgem)
+  - [![Version](http://img.shields.io/gem/v/astruct.svg?style=flat-square)](https://rubygems.org/gems/astruct)
 
-
-TODO: Write a gem description
+`AltStruct` is a direct alternative to OpenStruct, the Ruby class from the Standard Library.
 
 
 Using
 =====
 
-TODO: Write usage instructions here
+You can use `AltStruct` exactly like `OpenStruct`:
+
+``` ruby
+require "astruct"
+
+person = AltStruct.new(name: "Kurtis Rainbolt-Greene", age: 23, friends: [])
+person.name
+  # => "Kurtis Rainbolt-Greene"
+person.age
+  # => 23
+person.location = "Los Angeles, CA"
+person.location
+  # => "Los Angeles, CA"
+
+class Person < AltStruct
+  # ...Custom logic...
+end
+
+person2 = Person.new(name: "Angela Englund")
+person2.name
+  # => "Angela Englund"
+```
+
+Here is where `AltStruct` differs:
+
+``` ruby
+# We have access to a merge method, like Hash. It doesn't overwrite the entire
+# tree anymore, like OpenStruct#marshal_load.
+person.merge({ name: "James Caldwell" })
+person.name
+  # => "James Caldwell"
+person.age
+  # => 23
+
+# You no longer completely overwrite core Ruby object methods:
+person.object_id
+  # => ...
+person.inspect
+  # => ...
+person.object_id = 1
+person.object_id
+  # => 1
+person.inspect
+  # => ...
+person.__object_id__
+```
+
+``` ruby
+# You can now mixin behavior instead of forcing inheritence:
+class Person
+  include AltStruct::Behavior
+end
+```
+
+We've also fixed some problematic bugs.
 
 
 Installing
@@ -27,7 +81,7 @@ Installing
 
 Add this line to your application's Gemfile:
 
-    gem "blankgem", "~> 1.0"
+    gem "astruct", "~> 3.0"
 
 And then execute:
 
@@ -35,7 +89,7 @@ And then execute:
 
 Or install it yourself with:
 
-    $ gem install blankgem
+    $ gem install astruct
 
 
 Contributing
