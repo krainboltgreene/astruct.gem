@@ -21,6 +21,13 @@ DOCUMENT
   end unless ENV["CI"]
 end
 
+desc "Run all profiling tests"
+task :profile do
+  Dir[File.join(File.dirname(__FILE__), "prof", "**", "*.rb")].each do |profile|
+    `bundle exec ruby #{profile}`
+  end
+end
+
 desc "Note each result in a git-note"
 task :record do
   `git notes add -f -m "#{`bundle exec rake benchmark`}"`

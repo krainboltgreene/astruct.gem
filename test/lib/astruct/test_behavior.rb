@@ -130,7 +130,7 @@ class TestAltStruct < MiniTest::Unit::TestCase
   end
 
   def test_method_missing_handles_square_bracket_equals
-    assert_raises(ArgumentError) { @empty[:foo] = :bar }
+    assert_raises(NoMethodError) { @empty[:foo] = :bar }
   end
 
   def test_method_missing_handles_square_brackets

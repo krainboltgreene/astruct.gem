@@ -1,6 +1,6 @@
 require "benchmark/ips"
-require "astruct"
 require "ostruct"
+require "astruct"
 
 DATA = (1..5_000).map { |i| { "key#{i}" => "value#{i}" } }.inject :merge!
 UPDATE = DATA.merge (1..2_500).map { |i| { "key#{i}" => "value#{i + rand(1..3)}" } }.inject :merge!

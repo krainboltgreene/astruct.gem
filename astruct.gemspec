@@ -26,5 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-doc", "~> 0.6"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 0.4"
   spec.add_development_dependency "benchmark-ips", "~> 1.2"
-  spec.add_development_dependency "ruby-prof", "~> 1.2"
+  spec.add_development_dependency "ruby-prof", "~> 0.14"
 end

@@ -1,6 +1,6 @@
 require "benchmark/ips"
-require "astruct"
 require "ostruct"
+require "astruct"
 require "securerandom"
 
 Benchmark.ips do |x|

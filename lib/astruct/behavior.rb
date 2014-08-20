@@ -84,11 +84,11 @@ class AltStruct
       when /__/ then next
 
       # Skip methods that can't be set anyways
-      when /\@|\[|\]|\=\=/ then next
+      when /\@|\[|\]|\=\=|\~|\>|\<|\!\=/ then next
 
       # Get around Ruby's stupid method signature problems with ? and !
       # suffixes
-      when /\?|\!/ then alias_method "__#{m[0...-1]}__#{m[-1]}".to_sym, m
+      when /(\?|\!)$/ then alias_method "__#{m[0...-1]}__#{m[-1]}".to_sym, m
 
       # Finally, wrap regular methods
       else alias_method "__#{m}__".to_sym, m
@@ -111,14 +111,14 @@ class AltStruct
     #
     def initialize(pairs = {})
       @table ||= {}
-      __iterate_set_over__(pairs)
+      __iterate_set_over__(pairs) unless pairs.empty?
     end
 
     # This is the `load()` method, which works like initialize in that it
     # will create new fields for each pair passed. It mimics the behavior of a
     # Hash#merge.
     def __load__(pairs)
-      __iterate_set_over__(pairs)
+      __iterate_set_over__(pairs) unless pairs.empty?
     end
     alias_method :marshal_load, :__load__
     alias_method :load, :__load__
@@ -162,17 +162,17 @@ class AltStruct
     # The `method_missing()` method catches all non-tabled method calls.
     # The AltStruct object will return two specific errors depending on
     # the call.
-    def method_missing(method, *arguments)
+    def method_missing(method, *args)
       name = method.to_s
-      unless name.include?("=")
-        error, text = NoMethodError, "undefined method `#{name}' for #{self}"
+      if name.split("").last == "=" && args.size == 1
+        __define_field__(name.chomp!("="), args.first)
+      else
+        if name.split.last != "="
+          super
+        else args.size > 1
+          raise ArgumentError,"wrong number of arguments (#{args.size} for 1)"
+        end
       end
-      unless arguments.size == 1
-        error = ArgumentError
-        text = "wrong number of arguments (#{arguments.size} for 1)"
-      end
-      raise error, text, caller(1) if error && text
-      __overwrite_field__(name.chomp!("="), arguments.first)
     end
 
     def ==(other)
@@ -212,19 +212,18 @@ class AltStruct
       Thread.current[THREAD_KEY]
     end
 
-    def __define_accessor__(key, value)
-      __define_singleton_method__(key) { @table[key] }
-      __define_singleton_method__("#{key}=") { |v| @table[key] = v }
-      { key => value }
+    def __define_field__(key, value)
+      __define_accessor__(key)
+      __set_table__(key, value)
     end
 
-    def __new_field__(key, value)
-      return if __respond_to__?(key)
-      @table.merge!(__define_accessor__(key, value))
+    def __define_accessor__(key)
+      singleton_class.send(:define_method, key) { @table[key] }
+      singleton_class.send(:define_method, "#{key}=") { |v| @table[key] = v }
     end
 
-    def __overwrite_field__(key, value)
-      @table.merge!(__define_accessor__(key, value))
+    def __set_table__(key, value)
+      @table.merge!(key => value) unless key.nil?
     end
 
     def __dump_specific__(keys)
@@ -236,12 +235,12 @@ class AltStruct
     end
 
     def __iterate_set_over__(pairs, force = false)
-      return if pairs.empty?
       for key, value in pairs
-        if force && __respond_to__?(key)
-          __overwrite_field__(key, value)
+        if force && respond_to?(key)
+          __set_table__(key, value)
         else
-          __new_field__(key, value)
+          __define_accessor__(key)
+          __set_table__(key, value)
         end
       end
     end

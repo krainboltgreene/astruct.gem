@@ -1,6 +1,6 @@
 require "benchmark/ips"
-require "astruct"
 require "ostruct"
+require "astruct"
 require "securerandom"
 
 DATA = (1..5_000).map { |i| { SecureRandom.hex => SecureRandom.hex } }.inject(:merge!)
