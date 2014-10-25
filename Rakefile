@@ -24,7 +24,7 @@ end
 
 desc "Note each result in a git-note"
 task :record do
-  `git notes add -f -m "#{`bundle exec rake benchmark`}"`
+  `git notes add -f -m "\`bundle exec rake benchmark\`"`
 end
 
 desc "Compare current versus last commit"
