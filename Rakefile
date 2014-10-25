@@ -10,15 +10,9 @@ desc "Running all the benchmarks and writing results to file"
 task :benchmark do
   STDOUT.puts("Benchmarking:")
   Dir[File.join(File.dirname(__FILE__), "bench", "**", "*.rb")].each do |benchmark|
-    STDOUT.puts <<-DOCUMENT
----
-file: #{benchmark}
-platform: #{RUBY_DESCRIPTION}
-timestamp: #{Time.now}
-results: |
-#{`bundle exec ruby #{benchmark}`.split("-------------------------------------------------").last}
-DOCUMENT
-  end unless ENV["CI"]
+    STDOUT.puts("---")
+    STDOUT.puts(`bundle exec ruby #{benchmark}`.gsub("\t", " ").gsub("---", ""))
+  end
 end
 
 desc "Run all profiling tests"

@@ -24,3 +24,7 @@ RSpec.configure do |let|
   # Output as a document string
   let.default_formatter = "doc"
 end
+
+class ExampleAltStruct
+  include AltStruct::Behavior
+end

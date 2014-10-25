@@ -69,29 +69,32 @@ class AltStruct
   # of the objects that are created, as there is much more overhead in the
   # setting of these properties compared to using a Hash or a Struct.
   module Behavior
-    THREAD_KEY = :__astruct_inspect_ids__ # :nodoc:
+    THREAD_KEY = :__as_ids__ # :nodoc:
     NESTED_INSPECT = "...".freeze
     INSPECT_DELIMITER = ", ".freeze
+    WRAP_PATTERN = /__/.freeze
+    UNSETABLE_PATTERN = /\@|\[|\]|\=\=|\~|\>|\<|\!\=/.freeze
+    SUFFIX_PATTERN = /(\?|\!)$/.freeze
 
     # We want to give easy access to the table
     attr_reader :table
 
     # We want to automatically wrap important Ruby object methods
-    Object.instance_methods.each do |m|
-      case m
+    Object.instance_methods.each do |meth|
+      case meth
 
       # Don't bother with already wrapped methods
-      when /__/ then next
+      when WRAP_PATTERN then next
 
       # Skip methods that can't be set anyways
-      when /\@|\[|\]|\=\=|\~|\>|\<|\!\=/ then next
+      when UNSETABLE_PATTERN then next
 
       # Get around Ruby's stupid method signature problems with ? and !
       # suffixes
-      when /(\?|\!)$/ then alias_method "__#{m[0...-1]}__#{m[-1]}".to_sym, m
+      when SUFFIX_PATTERN then alias_method("__#{meth[0...-1]}__#{meth[-1]}".to_sym, meth)
 
       # Finally, wrap regular methods
-      else alias_method "__#{m}__".to_sym, m
+      else alias_method("__#{meth}__".to_sym, meth)
       end
     end
 
@@ -162,15 +165,15 @@ class AltStruct
     # The `method_missing()` method catches all non-tabled method calls.
     # The AltStruct object will return two specific errors depending on
     # the call.
-    def method_missing(method, *args)
+    def method_missing(method, *arguments)
       name = method.to_s
-      if name.split("").last == "=" && args.size == 1
-        __define_field__(name.chomp!("="), args.first)
+      if name.split("").last == "=" && arguments.size == 1
+        __define_field__(name.chomp!("="), arguments.first)
       else
         if name.split.last != "="
           super
-        else args.size > 1
-          raise ArgumentError,"wrong number of arguments (#{args.size} for 1)"
+        else arguments.size > 1
+          raise(ArgumentError,"wrong number of arguments (#{arguments.size} for 1)")
         end
       end
     end
@@ -235,7 +238,7 @@ class AltStruct
     end
 
     def __iterate_set_over__(pairs, force = false)
-      for key, value in pairs
+      pairs.each do |key, value|
         if force && respond_to?(key)
           __set_table__(key, value)
         else
