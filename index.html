@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Astruct.gem by krainboltgreene</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Astruct.gem</h1>
+        <p>An alternative to ostruct</p>
+
+        <p class="view"><a href="https://github.com/krainboltgreene/astruct.gem">View the Project on GitHub <small>krainboltgreene/astruct.gem</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/krainboltgreene/astruct.gem/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/krainboltgreene/astruct.gem/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/krainboltgreene/astruct.gem">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <ul>
+<li><a href="https://codeclimate.com/github/krainboltgreene/astruct.gem"><img src="http://img.shields.io/codeclimate/github/krainboltgreene/astruct.gem.svg?style=flat-square" alt="Quality"></a></li>
+<li><a href="https://codeclimate.com/github/krainboltgreene/astruct.gem"><img src="http://img.shields.io/codeclimate/coverage/github/krainboltgreene/astruct.gem.svg?style=flat-square" alt="Coverage"></a></li>
+<li><a href="https://travis-ci.org/krainboltgreene/astruct.gem"><img src="http://img.shields.io/travis-ci/krainboltgreene/astruct.gem.svg?style=flat-square" alt="Build"></a></li>
+<li><a href="https://gemnasium.com/krainboltgreene/astruct.gem"><img src="http://img.shields.io/gemnasium/krainboltgreene/astruct.gem.svg?style=flat-square" alt="Dependencies"></a></li>
+<li><a href="https://rubygems.org/gems/astruct"><img src="http://img.shields.io/gem/dtv/astruct.svg?style=flat-square" alt="Downloads"></a></li>
+<li><a href="http://github.com/krainboltgreene/astruct.gem/tags"><img src="http://img.shields.io/github/tag/krainboltgreene/astruct.gem.svg?style=flat-square" alt="Tags"></a></li>
+<li><a href="http://github.com/krainboltgreene/astruct.gem/releases"><img src="http://img.shields.io/github/release/krainboltgreene/astruct.gem.svg?style=flat-square" alt="Releases"></a></li>
+<li><a href="http://github.com/krainboltgreene/astruct.gem/issues"><img src="http://img.shields.io/github/issues/krainboltgreene/astruct.gem.svg?style=flat-square" alt="Issues"></a></li>
+<li><a href="http://opensource.org/licenses/MIT"><img src="http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="License"></a></li>
+<li><a href="https://rubygems.org/gems/astruct"><img src="http://img.shields.io/gem/v/astruct.svg?style=flat-square" alt="Version"></a></li>
+</ul>
+
+<p><code>AltStruct</code> is a direct alternative to OpenStruct, the Ruby class from the Standard Library.</p>
+
+<h1>
+<a id="using" class="anchor" href="#using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h1>
+
+<p>You can use <code>AltStruct</code> exactly like <code>OpenStruct</code>:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>astruct<span class="pl-pds">"</span></span>
+
+person <span class="pl-k">=</span> <span class="pl-c1">AltStruct</span>.<span class="pl-k">new</span>(<span class="pl-c1">name:</span> <span class="pl-s"><span class="pl-pds">"</span>Kurtis Rainbolt-Greene<span class="pl-pds">"</span></span>, <span class="pl-c1">age:</span> <span class="pl-c1">23</span>, <span class="pl-c1">friends:</span> [])
+person.name
+  <span class="pl-c"># =&gt; "Kurtis Rainbolt-Greene"</span>
+person.age
+  <span class="pl-c"># =&gt; 23</span>
+person.location <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Los Angeles, CA<span class="pl-pds">"</span></span>
+person.location
+  <span class="pl-c"># =&gt; "Los Angeles, CA"</span>
+
+<span class="pl-k">class</span> <span class="pl-en">Person<span class="pl-e"> &lt; AltStruct</span></span>
+  <span class="pl-c"># ...Custom logic...</span>
+<span class="pl-k">end</span>
+
+person2 <span class="pl-k">=</span> <span class="pl-c1">Person</span>.<span class="pl-k">new</span>(<span class="pl-c1">name:</span> <span class="pl-s"><span class="pl-pds">"</span>Angela Englund<span class="pl-pds">"</span></span>)
+person2.name
+  <span class="pl-c"># =&gt; "Angela Englund"</span></pre></div>
+
+<p>Here is where <code>AltStruct</code> differs:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-c"># We have access to a merge method, like Hash. It doesn't overwrite the entire</span>
+<span class="pl-c"># tree anymore, like OpenStruct#marshal_load.</span>
+person.merge({ <span class="pl-c1">name:</span> <span class="pl-s"><span class="pl-pds">"</span>James Caldwell<span class="pl-pds">"</span></span> })
+person.name
+  <span class="pl-c"># =&gt; "James Caldwell"</span>
+person.age
+  <span class="pl-c"># =&gt; 23</span>
+
+<span class="pl-c"># You no longer completely overwrite core Ruby object methods:</span>
+person.object_id
+  <span class="pl-c"># =&gt; ...</span>
+person.inspect
+  <span class="pl-c"># =&gt; ...</span>
+person.object_id <span class="pl-k">=</span> <span class="pl-c1">1</span>
+person.object_id
+  <span class="pl-c"># =&gt; 1</span>
+person.inspect
+  <span class="pl-c"># =&gt; ...</span>
+person.__object_id__</pre></div>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-c"># You can now mixin behavior instead of forcing inheritence:</span>
+<span class="pl-k">class</span> <span class="pl-en">Person</span>
+  <span class="pl-k">include</span> <span class="pl-c1">AltStruct</span>::<span class="pl-c1">Behavior</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>We've also fixed some problematic bugs.</p>
+
+<h1>
+<a id="installing" class="anchor" href="#installing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing</h1>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem "astruct", "~&gt; 3.0"
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself with:</p>
+
+<pre><code>$ gem install astruct
+</code></pre>
+
+<h1>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h1>
+
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+
+<h1>
+<a id="licensing" class="anchor" href="#licensing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Licensing</h1>
+
+<p>Copyright (c) 2013 Kurtis Rainbolt-Greene</p>
+
+<p>MIT License</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/krainboltgreene">krainboltgreene</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-18715035-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
